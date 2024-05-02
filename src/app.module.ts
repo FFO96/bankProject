@@ -4,6 +4,7 @@ import { configLoader } from './utils/config-loader';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { postgresAsyncConfig } from './config/typeorm-config';
 import { AccountModule } from './account/account.module';
+import { CardModule } from './card/card.module';
 
 @Module({
   imports: [
@@ -12,7 +13,8 @@ import { AccountModule } from './account/account.module';
     load: [configLoader]
   }),
   TypeOrmModule.forRootAsync(postgresAsyncConfig),
-  AccountModule
+  AccountModule,
+  CardModule
 ],
   controllers: [],
   providers: [],

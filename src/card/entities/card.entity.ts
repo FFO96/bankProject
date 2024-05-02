@@ -9,7 +9,7 @@ import {
   } from 'typeorm';
   
   @Entity()
-  export class Transaction {
+  export class Card {
     @PrimaryGeneratedColumn('uuid')
     id?: string;
   
@@ -21,19 +21,16 @@ import {
   
     @Column()
     type!: string;
+
+    @Column()
+    pin!: string;
+
+    @Column({default: false})
+    active!: boolean;
   
     @Column('numeric', { precision: 8, scale: 2 })
-    quantity!: number;
+    withdrawalLimit!: number;
 
-    @ManyToOne(()=> Account, (origin)=> origin.outgoingTransactions)
-    origin!: Account;
-
-    @ManyToOne(()=> Account, (destination)=> destination.incomingTransactions)
-    destination?: Account;
-
-    constructor(
-      transaction: Transaction,
-    ){
-      Object.assign(this, transaction);
-    }
+    @ManyToOne(()=> Account, (ownerAccount)=> ownerAccount.cards)
+    ownerAccount!: Account;
   }

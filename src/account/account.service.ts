@@ -13,7 +13,7 @@ import {
     ) { }
   
     async getAccountByIban(iban: string) {
-      return this.accountRepository.find({
+      return await this.accountRepository.findOne({
         where: {iban},
         relations: {
             outgoingTransactions: true,
