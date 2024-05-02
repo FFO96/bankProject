@@ -7,13 +7,13 @@ import {
   import { Account } from './entities/account.entity';
   
   @Injectable()
-  export class AccountService implements OnApplicationBootstrap {
+  export class AccountService {
     constructor(
       @InjectRepository(Account) private accountRepository: Repository<Account>,
     ) { }
   
     async getAccountByIban(iban: string) {
-      return this.accountRepository.find({
+      return await this.accountRepository.findOne({
         where: {iban},
         relations: {
             outgoingTransactions: true,
@@ -21,21 +21,5 @@ import {
         }
       });
     }
-  /*
-    async create(coffeePostDto: CoffeePostDto) {
-      const newCoffee = this.coffeeRepository.create(coffeePostDto);
-      return this.coffeeRepository.save(newCoffee);
-    }*/
-  
-    // DB population
-  
-    async onApplicationBootstrap() {
-      //await this.seedDatabase();
-    }
-  /*
-    private async seedDatabase() {
-      await this.coffeeRepository.clear();
-      return this.coffeeRepository.save(coffeeSamples);
-    }*/
   }
   

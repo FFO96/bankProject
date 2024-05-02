@@ -1,46 +1,52 @@
+import { Card } from 'src/card/entities/card.entity';
 import { Transaction } from 'src/transaction/entities/transaction.entity';
 import {
-    Column,
-    CreateDateColumn,
-    Entity,
-    PrimaryGeneratedColumn,
-    UpdateDateColumn,
-    OneToMany
-  } from 'typeorm';
-  
-  @Entity()
-  export class Account {
-    @PrimaryGeneratedColumn('uuid')
-    id?: string;
-  
-    @CreateDateColumn()
-    created?: Date;
-  
-    @UpdateDateColumn()
-    updated?: Date;
-  
-    @Column({ unique: true })
-    iban!: string;
-  
-    @Column()
-    bank!: string;
-  
-    @Column('numeric', { precision: 8, scale: 2 })
-    balance!: number;
-    
-    @Column('numeric', { precision: 8, scale: 2 })
-    availableCredit!: number;
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+  OneToMany
+} from 'typeorm';
 
-    @OneToMany(
-        ()=> Transaction,
-        (outgoingTransaction: Transaction) => outgoingTransaction.origin,
-    )
-    outgoingTransactions?: Transaction[];
+@Entity()
+export class Account {
+  @PrimaryGeneratedColumn('uuid')
+  id?: string;
 
-    @OneToMany(
-        ()=> Transaction,
-        (incomingTransaction: Transaction) => incomingTransaction.destination,
-    )
-    incomingTransactions?: Transaction[];
-  }
-  
+  @CreateDateColumn()
+  created?: Date;
+
+  @UpdateDateColumn()
+  updated?: Date;
+
+  @Column({ unique: true })
+  iban!: string;
+
+  @Column()
+  bank!: string;
+
+  @Column('numeric', { precision: 8, scale: 2 })
+  balance!: number;
+
+  @Column('numeric', { precision: 8, scale: 2 })
+  availableCredit!: number;
+
+  @OneToMany(
+    () => Transaction,
+    (outgoingTransaction: Transaction) => outgoingTransaction.origin,
+  )
+  outgoingTransactions?: Transaction[];
+
+  @OneToMany(
+    () => Transaction,
+    (incomingTransaction: Transaction) => incomingTransaction.destination,
+  )
+  incomingTransactions?: Transaction[];
+
+  @OneToMany(
+    () => Card,
+    (cards: Card) => cards.ownerAccount,
+  )
+  cards?: Card[];
+}
