@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { configLoader } from './utils/config-loader';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -16,7 +14,7 @@ import { AccountModule } from './account/account.module';
   TypeOrmModule.forRootAsync(postgresAsyncConfig),
   AccountModule
 ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

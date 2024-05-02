@@ -8,10 +8,4 @@ export class AccountController {
   getAccountByIban(@Param('accountIban') accountIban: string) {
     return this.accountService.getAccountByIban(accountIban);
   }
-
-  /*
-  @Post()
-  async postCoffee(@Body() coffeePostDto: CoffeePostDto): Promise<Coffee> {
-    return this.coffeeService.create(coffeePostDto);
-  }*/
 }
